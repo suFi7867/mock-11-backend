@@ -20,6 +20,7 @@ app.get("/", async (req, res) => {
 });
 
 
+
 // Login Route
 app.post("/login", async (req, res) => {
 
@@ -80,14 +81,16 @@ app.post("/signup", async (req, res) => {
   const {
     email,
     password, 
+    username,
   } = req.body;
 
   console.log(req.body)
   
 
-  if (!email || !password ) {
+  if (!email || !password || !username ) {
     return res.status(403).send("Enter Credentails");
   }
+
   try {
     const exsist = await UserModel.findOne({ email });
     if (exsist)
@@ -103,6 +106,7 @@ app.post("/signup", async (req, res) => {
       const user = await UserModel({
         email,
         password: hash,
+        username
       });
 
       await user.save();
@@ -114,6 +118,7 @@ app.post("/signup", async (req, res) => {
   } catch (er) {
     return res.status(404).send(er.message);
   }
+  
 });
 
 
