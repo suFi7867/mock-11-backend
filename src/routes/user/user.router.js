@@ -81,13 +81,13 @@ app.post("/signup", async (req, res) => {
   const {
     email,
     password, 
-    username,
+    
   } = req.body;
 
   console.log(req.body)
   
 
-  if (!email || !password || !username ) {
+  if (!email || !password  ) {
     return res.status(403).send("Enter Credentails");
   }
 
@@ -106,7 +106,7 @@ app.post("/signup", async (req, res) => {
       const user = await UserModel({
         email,
         password: hash,
-        username
+       
       });
 
       await user.save();
